@@ -5,15 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --open --compress",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test ava"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "ava": "^0.18.1",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-react-app": "^2.1.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^9.11.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
@@ -22,5 +31,17 @@
   },
   "dependencies": {
     "lodash": "^4.17.4"
+  },
+  "babel": {
+    "presets": "react-app"
+  },
+  "ava": {
+    "tap": true,
+    "babel": "inherit",
+    "require": [
+      "babel-register",
+      "ignore-styles",
+      "./src/test/test-setup"
+    ]
   }
 }
