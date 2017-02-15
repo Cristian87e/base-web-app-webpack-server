@@ -4,8 +4,9 @@
   "description": "A ToDo express App",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --open --compress",
-    "test": "cross-env NODE_ENV=test ava"
+    "start": "cross-env NODE_ENV=development ./node_modules/.bin/webpack-dev-server --open --compress",
+    "test": "cross-env NODE_ENV=test ava",
+    "coverage": "cross-env NODE_ENV=test nyc ava"
   },
   "author": "",
   "license": "MIT",
@@ -13,6 +14,7 @@
     "ava": "^0.18.1",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-istanbul": "^4.0.0",
     "babel-polyfill": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
@@ -24,16 +26,23 @@
     "ignore-styles": "^5.0.1",
     "jsdom": "^9.11.0",
     "node-sass": "^4.5.0",
+    "nyc": "^10.1.2",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "normalize.css": "^5.0.0"
   },
   "babel": {
-    "presets": "react-app"
+    "presets": "react-app",
+    "env": {
+        "test": {
+          "plugins": ["istanbul"]
+        }
+      }
   },
   "ava": {
     "tap": true,
@@ -43,5 +52,23 @@
       "ignore-styles",
       "./src/test/test-setup"
     ]
+  },
+  "nyc": {
+    "lines": 95,
+    "statements": 95,
+    "functions": 95,
+    "branches": 95,
+    "include": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "extension": [
+      ".jsx",
+      ".es6"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }
